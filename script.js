@@ -7,11 +7,12 @@ const ResetBtn = document.querySelector(".ResetBtn");
 const countPomoDisplay = document.querySelector(".countPomoDisplay");
 
 // variables
-const WORK_TIME = 1 * 60;
-const BREAK_TIME = 0.5 * 60;
+const WORK_TIME = 25 * 60;
+const BREAK_TIME = 5 * 60;
 let timerID = null;
 let oneRoundComplete = false;
 let countTimer = 0;
+let paused = false;
 
 // function for save localstroage
 const saveLocalCounts = () => {
@@ -28,7 +29,13 @@ const updateTitle = (msg) => {
 // function for countDown
 const countDown = (time) => {
   return () => {
-    timer.textContent = time;
+    const mins = Math.floor(time / 60)
+      .toString()
+      .padStart(2, "0");
+    const sece = Math.floor(time % 60)
+      .toString()
+      .padStart(2, "0");
+    timer.textContent = `${mins}:${sece}`;
     time--;
     if (time <= 0) {
       stopTimer();
@@ -61,10 +68,38 @@ const stopTimer = () => {
   timerID = null;
 };
 
+// get time in seconds
+const getTimeInSeconds = (timeString) => {
+  const [minutes, seconds] = timeString.split(":");
+  return parseInt(minutes * 60) + parseInt(seconds);
+};
+
 // add eventlistener
 startBtn.addEventListener("click", () => {
   timerID = startTimer(WORK_TIME);
   updateTitle("It's Work Time!");
+});
+
+ResetBtn.addEventListener("click", () => {
+  stopTimer();
+  timer.textContent = "25:00";
+});
+
+pauseBtn.addEventListener("click", () => {
+  stopTimer();
+  paused = true;
+  updateTitle("Timer Pasued!");
+});
+
+resumeBtn.addEventListener("click", () => {
+  if (paused) {
+    const currentTime = getTimeInSeconds(timer.textContent);
+    timerID = startTimer(currentTime);
+    paused = false;
+    !oneRoundComplete
+      ? updateTitle("It's Work Time")
+      : updateTitle("It's Break Time");
+  }
 });
 
 // function for show pomoCounts
