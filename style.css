@@ -50,4 +50,9 @@ body {
   border: none;
   background-color: var(--clr);
   color: #fff;
+  cursor: pointer;
+  transition: transform 0.4s ease-in-out;
+}
+.buttons button:hover {
+  transform: scale(1.1);
 }
