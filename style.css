@@ -5,7 +5,8 @@
   font-family: sans-serif;
 }
 body {
-  background-color: rgb(9, 99, 99);
+  background-image: url("/bg.png");
+  background-size: cover;
   color: azure;
 }
 .container {
