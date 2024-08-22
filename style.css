@@ -57,3 +57,30 @@ body {
 .buttons button:hover {
   transform: scale(1.1);
 }
+.countPomoDisplay {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 15px;
+  animation: swipe-up 1s ease-in;
+}
+.countPomoDisplay span {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 10px 0px;
+}
+.countPomoDisplay p {
+  font-size: 22px;
+  font-weight: 600;
+}
+@keyframes swipe-up {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
